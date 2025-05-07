@@ -97,29 +97,25 @@
                 android:checked="false"
                 android:text="bamboo_recomended"/>
 
-           <RadioGroup
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
 
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:orientation="horizontal"
-             android:layout_gravity="center"
-               >
-               <RadioButton
-                   android:layout_marginEnd="16dp"
-                   android:id="@+id/cash"
-                   android:text="cash"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"/>
+                <RadioButton
+                    android:id="@+id/cash"
+                    android:text="Cash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-               <RadioButton
-                    android:layout_marginStart="16dp"
-                   android:id="@+id/card"
-                   android:text="card"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"/>
-
-
-           </RadioGroup>
+                <RadioButton
+                    android:id="@+id/card"
+                    android:text="Card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RadioGroup>
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/cheainfo"

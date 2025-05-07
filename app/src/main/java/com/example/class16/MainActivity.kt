@@ -1,56 +1,57 @@
 package com.example.class16
 
-import android.app.ProgressDialog.show
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.CompoundButton
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.class16.databinding.ActivityMainBinding
-import com.google.android.material.textfield.TextInputEditText
 
-class MainActivity :
-    AppCompatActivity(), CompoundButton.OnCheckedChangeListener {
+class MainActivity : AppCompatActivity() {
 
-
-  lateinit var binding : ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-        binding=ActivityMainBinding.inflate(layoutInflater)
-
-
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-binding.bamboSwitch.setOnCheckedChangeListener(this)
 
-        binding.submit.setOnClickListener {
-            
-            var msg:String=binding.nameedit.text.toString().trim()
-            show(msg)
+
+        binding.bamboSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                Toast.makeText(this, "Bamboo Recommended: On", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Bamboo Recommended: Off", Toast.LENGTH_SHORT).show()
+            }
         }
 
 
+        var isPaymentSelected = false
+
+        binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+
+            isPaymentSelected = when (checkedId) {
+                R.id.cash -> true
+                R.id.card -> true
+                else -> false
+            }
+        }
+
+
+
+        binding.submit.setOnClickListener {
+
+            val name = binding.nameedit.text.toString().trim()
+
+
+            if (name.isEmpty()) {
+                binding.nameedit.error = "Name field is required"
+            } else if (!isPaymentSelected) {
+                Toast.makeText(this, "You have to select a payment option", Toast.LENGTH_SHORT).show()
+            } else if (!binding.cheainfo.isChecked || !binding.cheakagree.isChecked) {
+                Toast.makeText(this, "You need to agree to the terms", Toast.LENGTH_SHORT).show()
+            } else {
+
+                Toast.makeText(this, "Form Submitted Successfully", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
-
-    private fun show(msg: String) {
-
-    }
-
-    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-
-       if(isChecked){
-           Toast.makeText(this,"chacked",Toast.LENGTH_SHORT).show()
-       }else{
-           Toast.makeText(this,"Not chacked",Toast.LENGTH_SHORT).show()
-       }
-
-    }
-
-
 }
